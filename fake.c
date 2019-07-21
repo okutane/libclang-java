@@ -1,5 +1,5 @@
-#define _TIME_H_
 #define __attribute__(ignored)
+#define __declspec(ignored)
 
 #include <clang-c/Index.h>
 
