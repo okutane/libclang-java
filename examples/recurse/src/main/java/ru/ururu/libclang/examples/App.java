@@ -18,26 +18,12 @@ public class App {
 
             CXCursor cursor = libclang.clang_getTranslationUnitCursor(unit);
 
-            clang_visitChildren(cursor, (CXCursor c, CXCursor parent, SWIGTYPE_p_void client_data) -> {
-                System.out.println("Cursor '" + libclang.clang_getCursorSpelling(c) + "' of kind '"
-                        + libclang.clang_getCursorKindSpelling(libclang.clang_getCursorKind(c)));
-                return CXChildVisitResult.CXChildVisit_Recurse;
-            }, null);
+            CXCursorKind cxCursorKind = libclang.clang_getCursorKind(cursor);
+            System.out.println("cxCursorKind = " + cxCursorKind);
 
             libclang.clang_disposeTranslationUnit(unit);
         } finally {
             libclang.clang_disposeIndex(index);
         }
-    }
-
-    // todo remove
-    static long clang_visitChildren(CXCursor parent, CXCursorVisitor visitor, SWIGTYPE_p_void client_data) {
-        return libclang.clang_visitChildren(parent, null, client_data);
-    }
-
-    // todo add to lib
-    @FunctionalInterface
-    interface CXCursorVisitor {
-        CXChildVisitResult apply(CXCursor cursor, CXCursor parent, SWIGTYPE_p_void clientData);
     }
 }

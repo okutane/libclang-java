@@ -30,7 +30,9 @@ dependencies {
 }
 
 run {
-    systemProperty "java.library.path", "../../target/native/shared"
+    systemProperty "java.library.path", "../../../../../target/native/shared"
+
+    workingDir "src/main/cpp"
 }
 
 // Define the main class for the application

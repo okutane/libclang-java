@@ -4,7 +4,7 @@
 set -e
 
 JAVA_HOME=`/usr/libexec/java_home -v 1.8`
-LLVM_HOME="/usr/local/Cellar/llvm/7.0.1"
+LLVM_HOME=${LLVM_HOME:-/usr/local/Cellar/llvm/7.0.1}
 
 case `uname` in
     Linux)
@@ -48,7 +48,7 @@ mkdir -p $OBJ_DIR
 SOBJ_DIR="target/native/shared"
 mkdir -p $SOBJ_DIR
 
-clang -E -fno-blocks -I$LLVM_HOME/include fake.c -o $CPP_OUT/fake.h
+clang -E -nostdinc -fno-blocks -I$LLVM_HOME/include -Ifake fake.c -o $CPP_OUT/fake.h
 
 swig -java -outdir $JAVA_OUT -package ru.urururu.clang -o $CPP_OUT/libclang_wrap.c -v $SRC_DIR/libclang.i
 
